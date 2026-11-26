@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SIVIADSAGENCY IN DELHI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #070b16;
+      /* page base */
+      --panel: #0b1224;
+      /* card body */
+      --panel-top: #0e1730;
+      /* card header */
+      --gold: #d9b96e;
+      /* champagne gold */
+      --gold-soft: #f0dca8;
+      /* light gold */
+      --gold-deep: #a8854a;
+      /* antique gold */
+      --ivory: #f5efe0;
+      /* headings */
+      --mist: #a9b0c4;
+      /* body text */
+      --muted: #5f6781;
+      /* small text */
+      --line: rgba(217, 185, 110, 0.22);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 20px 80px 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      background: var(--ink);
+    }
+
+    .video-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 11, 22, 0.88);
+      z-index: -1;
+    }
+
+    .rb-circles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .rb-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(217, 185, 110, 0.09);
+    }
+
+    .rb-c1 {
+      width: 600px;
+      height: 600px;
+      top: -250px;
+      right: -200px;
+    }
+
+    .rb-c2 {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+      border-color: rgba(217, 185, 110, 0.06);
+    }
+
+    .rb-c3 {
+      width: 220px;
+      height: 220px;
+      top: 35%;
+      right: 8%;
+      border-color: rgba(217, 185, 110, 0.07);
+    }
+
+    .rb-glow {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 560px;
+      height: 360px;
+      background: radial-gradient(ellipse, rgba(217, 185, 110, 0.16) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .rb-card {
+      width: 100%;
+      max-width: 410px;
+      position: relative;
+      z-index: 2;
+      animation: rb-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      margin-bottom: 20px;
+    }
+
+    @keyframes rb-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .rb-top {
+      background: linear-gradient(180deg, var(--panel-top), #0a1128);
+      border: 1px solid var(--line);
+      border-radius: 28px 28px 0 0;
+      padding: 36px 28px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rb-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-deep), var(--gold-soft), var(--gold-deep), transparent);
+    }
+
+    .rb-avatar-ring {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold-deep));
+      position: relative;
+      box-shadow: 0 8px 30px rgba(217, 185, 110, 0.18);
+    }
+
+    .rb-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--panel-top);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--gold);
+    }
+
+    .rb-avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .rb-verified {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold-deep));
+      border-radius: 50%;
+      border: 2px solid var(--panel-top);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #1a1204;
+      font-weight: 700;
+    }
+
+    .rb-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--ivory);
+      line-height: 1.2;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .rb-designation {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(217, 185, 110, 0.08);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 11px;
+      color: var(--gold-soft);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .rb-body {
+      background: var(--panel);
+      border: 1px solid rgba(217, 185, 110, 0.16);
+      border-top: none;
+      border-radius: 0 0 28px 28px;
+      padding: 24px 28px 24px;
+    }
+
+    .rb-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .rb-stat {
+      background: rgba(217, 185, 110, 0.05);
+      border: 1px solid rgba(217, 185, 110, 0.16);
+      border-radius: 14px;
+      padding: 14px 8px;
+      text-align: center;
+    }
+
+    .rb-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .rb-stat-lbl {
+      font-size: 9px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .rb-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .rb-feat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rb-feat-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(217, 185, 110, 0.07);
+      border: 1px solid rgba(217, 185, 110, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .rb-feat-text {
+      font-size: 13px;
+      color: var(--mist);
+      font-weight: 400;
+    }
+
+    .rb-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .rb-trust-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(217, 185, 110, 0.14);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 11px;
+      color: var(--gold-deep);
+      font-weight: 500;
+    }
+
+    /* CTA: calm gold, slow shine only */
+    .rb-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+      color: #1a1204;
+      text-decoration: none;
+      padding: 18px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(217, 185, 110, 0.25);
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+    }
+
+    .rb-btn svg {
+      fill: #1a1204;
+    }
+
+    .rb-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      animation: rb-shine 3.4s infinite;
+    }
+
+    @keyframes rb-shine {
+      0% {
+        left: -100%;
+      }
+
+      60%,
+      100% {
+        left: 200%;
+      }
+    }
+
+    .rb-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(217, 185, 110, 0.38);
+      filter: brightness(1.06);
+    }
+
+    .rb-btn:focus-visible {
+      outline: 2px solid var(--gold-soft);
+      outline-offset: 3px;
+    }
+
+    .rb-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(217, 185, 110, 0.12);
+    }
+
+    .rb-footer-txt {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .rb-agency {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid rgba(217, 185, 110, 0.35);
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+
+    .rb-fixed-disclaimer {
+      position: relative;
+      width: 100%;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.6;
+      text-align: center;
+      padding: 15px 20px;
+      margin-top: 20px;
+      z-index: 2;
+      background: rgba(7, 11, 22, 0.5);
+      border: 1px solid rgba(217, 185, 110, 0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .rb-fixed-disclaimer strong {
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .rb-card {
+        animation: none;
+      }
+
+      .rb-btn::after {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/9607/9607-720.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <div class="rb-circles">
+    <div class="rb-circle rb-c1"></div>
+    <div class="rb-circle rb-c2"></div>
+    <div class="rb-circle rb-c3"></div>
+  </div>
+  <div class="rb-glow"></div>
+
+  <div class="rb-card">
+    <div class="rb-top">
+      <div class="rb-avatar-ring">
+        <div class="rb-avatar-inner">
+          <img
+            src="nitinpic.jpg">
+        </div>
+        <div class="rb-verified">✓</div>
+      </div>
+      <div class="rb-name">CA NITIN MURARKA ™</div>
+    </div>
+
+    <div class="rb-body">
+      <div class="rb-stats">
+        <div class="rb-stat">
+          <div class="rb-stat-val">24/7</div>
+          <div class="rb-stat-lbl">Updates</div>
+        </div>
+        <div class="rb-stat">
+          <div class="rb-stat-val">Free</div>
+          <div class="rb-stat-lbl">To Join</div>
+        </div>
+        <div class="rb-stat">
+          <div class="rb-stat-val">Live</div>
+          <div class="rb-stat-lbl">Calls</div>
+        </div>
+      </div>
+
+      <a href="https://t.me/+EsCSJetVbqBmMGJl" class="rb-btn" id="telegram-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            d="M16 8a8 8 0 1 1-16 0 8 8 0 0 1 16 0zM6.79 10.89l-.27 3.67c.39 0 .56-.17.77-.38l1.85-1.76 3.84 2.8c.7.39 1.19.19 1.36-.65l2.47-11.59c.22-.98-.35-1.37-1.05-1.14L1.13 6.24c-.95.37-.93.9-.17 1.14l3.57 1.11 8.3-5.23c.39-.26.74-.12.45.14L6.79 10.89z" />
+        </svg>
+        JOIN OUR TEAM
+      </a>
+
+      <div class="rb-features">
+        <div class="rb-feat">
+          <div class="rb-feat-dot">📊</div>
+          <div class="rb-feat-text">प्रतिदिन 3-4 बार कॉल</div>
+        </div>
+        <div class="rb-feat">
+          <div class="rb-feat-dot">🎓</div>
+          <div class="rb-feat-text">लक्ष्य 100 अंक</div>
+        </div>
+        <div class="rb-feat">
+          <div class="rb-feat-dot">⚡</div>
+          <div class="rb-feat-text">ट्रेडिंग समय सुबह 9 बजे के बाद</div>
+        </div>
+        <div class="rb-feat">
+          <div class="rb-feat-dot">🎓</div>
+          <div class="rb-feat-text">सटीक कॉल्स कम जोखिम बेहतर मुनाफा</div>
+        </div>
+      </div>
+
+      <div class="rb-trust">
+        <div class="rb-trust-pill">✦ Trusted Community</div>
+        <div class="rb-trust-pill">✦ CA Backed</div>
+      </div>
+
+      <div class="rb-footer">
+        <div class="rb-footer-txt">@Adzonn · Stay ahead with knowledge</div>
+        <a href="#" target="_blank" class="rb-agency">📱 SIVIADSAGENCY</a>
+      </div>
+
+      <div class="rb-fixed-disclaimer">
+        <strong>DISCLAIMER:</strong> Educational platform. LEARN WITH GOUTAM ™ is NOT SEBI registered. No tips or
+        investment advice provided. Trading involves financial risk. This site is not part of Meta.
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
